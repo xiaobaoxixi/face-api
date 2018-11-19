@@ -2,6 +2,7 @@
 <html>
   <head>
     <title>JSSample</title>
+    <link rel="stylesheet" href="main.css" />
     <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.0/jquery.min.js"></script>
   </head>
 
@@ -16,63 +17,29 @@
   </ul>
 
   <body>
-    <script type="text/javascript">
-      $(function() {
-        // No query string parameters for this API call.
-        var params = {
-          returnFaceId: "true",
-          returnFaceLandmarks: "true",
-          returnFaceAttributes: "emotion"
-        };
+    <video id="camera-stream"></video> <img id="snap" />
 
-        $.ajax({
-          // NOTE: You must use the same location in your REST call as you used to obtain your subscription keys.
-          //   For example, if you obtained your subscription keys from westcentralus, replace "westus" in the
-          //   URL below with "westcentralus".
-          url:
-            "https://westeurope.api.cognitive.microsoft.com/face/v1.0/detect?" +
-            $.param(params),
-          beforeSend: function(xhrObj) {
-            // Request headers, also supports "application/octet-stream"
-            xhrObj.setRequestHeader("Content-Type", "application/json");
+    <p id="error-message"></p>
 
-            // NOTE: Replace the "Ocp-Apim-Subscription-Key" value with a valid subscription key.
-            xhrObj.setRequestHeader(
-              "Ocp-Apim-Subscription-Key",
-              "7aa6b095decb4b0d9624979844008941"
-            );
-          },
-          type: "POST",
-          // Request body
-          data:
-            '{"url": "https://i.pinimg.com/originals/37/8f/fa/378ffa7b4bc07f190ee35f85ed816377.jpg"}'
-        })
-          .done(function(data) {
-            // Get face rectangle dimensions
-            console.log(data);
-            var faceRectangle = data[0].faceRectangle;
-            var faceRectangleList = $("#faceRectangle");
+    <div class="controls">
+      <a href="#" id="delete-photo" title="Delete Photo" class="disabled"
+        ><i class="material-icons">delete</i></a
+      >
+      <a href="#" id="take-photo" title="Take Photo"
+        ><i class="material-icons">take photo</i></a
+      >
+      <a
+        href="#"
+        id="download-photo"
+        download="selfie.png"
+        title="Save Photo"
+        class="disabled"
+        ><i class="material-icons">download photo</i></a
+      >
+    </div>
 
-            // Append to DOM
-            for (var prop in faceRectangle) {
-              faceRectangleList.append(
-                "<li> " + prop + ": " + faceRectangle[prop] + "</li>"
-              );
-            }
-
-            // Get emotion confidence scores
-            var scores = data[0].scores;
-            var scoresList = $("#scores");
-
-            // Append to DOM
-            for (var prop in scores) {
-              scoresList.append("<li> " + prop + ": " + scores[prop] + "</li>");
-            }
-          })
-          .fail(function(err) {
-            alert("Error: " + JSON.stringify(err));
-          });
-      });
-    </script>
+    <!-- Hidden canvas element. Used for taking snapshot of video. -->
+    <canvas></canvas>
+    <script src="camera.js"></script>
   </body>
 </html>
