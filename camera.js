@@ -1,14 +1,21 @@
-let video = document.querySelector("#camera-stream");
-let image = document.querySelector("#snap");
-let takePhoto = document.querySelector("#take-photo");
-
-// get video stream
 window.addEventListener("DOMContentLoaded", init);
 function init() {
+  const start = document.querySelector("#startBtn"); // need to let the user interact with the page to trigger video allowance
+  start.addEventListener("click", startVideo);
+}
+
+function startVideo() {
+  let image = document.querySelector("#snap");
+  let video = document.querySelector("#camera-stream");
+  let takePhoto = document.querySelector("#take-photo");
+  let downloadPhoto = document.querySelector("#download-photo");
+
+  // get video stream
   navigator.getUserMedia(
     // Options
     {
-      video: true
+      video: true,
+      audio: false
     },
     // Success Callback
     function(stream) {
@@ -25,34 +32,76 @@ function init() {
       console.error(err);
     }
   );
+  takePhoto.addEventListener("click", takeSnapshot);
+  function takeSnapshot() {
+    let hidden_canvas = document.querySelector("canvas");
+    // Get the exact size of the video element.
+    let width = video.videoWidth;
+    let height = video.videoHeight;
+    // Context object for working with the canvas.
+    let context = hidden_canvas.getContext("2d");
+
+    // Set the canvas to the same dimensions as the video.
+    hidden_canvas.width = width;
+    hidden_canvas.height = height;
+
+    // Draw a copy of the current frame from the video on the canvas.
+    context.drawImage(video, 0, 0, width, height);
+
+    // Get an image dataURL from the canvas.
+    var imageDataURL = hidden_canvas.toDataURL("image/png");
+
+    // Set the dataURL as source of an image element, showing the captured photo.
+    image.setAttribute("src", imageDataURL);
+    var urlFixed = hidden_canvas
+      .toDataURL("image/png")
+      .replace("image/png", "image/octet-stream");
+    console.log(urlFixed);
+    downloadPhoto.addEventListener("click", downloadFile);
+    function downloadFile() {
+      window.location.href = urlFixed;
+    }
+
+    // upload to server
+    $.ajax({
+      type: "POST",
+      url: "uploadImg.php",
+      data: { img: imageDataURL }
+    }).done(function(msg) {
+      alert(msg);
+    });
+  }
 }
-takePhoto.addEventListener("click", takeSnapshot);
-function takeSnapshot() {
-  let hidden_canvas = document.querySelector("canvas");
-  // Get the exact size of the video element.
-  let width = video.videoWidth;
-  let height = video.videoHeight;
-  // Context object for working with the canvas.
-  let context = hidden_canvas.getContext("2d");
 
-  // Set the canvas to the same dimensions as the video.
-  hidden_canvas.width = width;
-  hidden_canvas.height = height;
+//////////////////////////////
+// upload img to server
+//////////////////////////////
 
-  // Draw a copy of the current frame from the video on the canvas.
-  context.drawImage(video, 0, 0, width, height);
+// var canvas = document.getElementById('canv');
+//   var context = canvas.getContext('2d');
 
-  // Get an image dataURL from the canvas.
-  var imageDataURL = hidden_canvas.toDataURL("image/png");
+//   context.arc(100, 100, 50, 0, 2 * Math.PI);
+//   context.lineWidth = 5;
+//   context.fillStyle = '#EE1111';
+//   context.fill();
+//   context.strokeStyle = '#CC0000';
+//   context.stroke();
 
-  // Set the dataURL as source of an image element, showing the captured photo.
-  image.setAttribute("src", imageDataURL);
-  var urlFixed = hidden_canvas
-    .toDataURL("image/png")
-    .replace("image/png", "image/octet-stream");
-  console.log(urlFixed);
-  window.location.href = urlFixed;
-}
+//   $(document).ready(function() {
+
+//     $("#bt_upload").click(function() {
+//       var canvas = document.getElementById('canv');
+//       var dataURL = canvas.toDataURL();
+//       $.ajax({
+//          type: "POST",
+//          url: "canvas_ajax_upload_post.php",
+//          data: { img: dataURL }
+//       }).done(function(msg){
+//          alert(msg);
+//       });
+//     });
+
+//   });
 
 //////////////////////////////
 // face API
@@ -84,24 +133,24 @@ $(function() {
     .done(function(data) {
       // Get face rectangle dimensions
       console.log(data);
-      var faceRectangle = data[0].faceRectangle;
-      var faceRectangleList = $("#faceRectangle");
+      //   var faceRectangle = data[0].faceRectangle;
+      //   var faceRectangleList = $("#faceRectangle");
 
-      // Append to DOM
-      for (var prop in faceRectangle) {
-        faceRectangleList.append(
-          "<li> " + prop + ": " + faceRectangle[prop] + "</li>"
-        );
-      }
+      //   // Append to DOM
+      //   for (var prop in faceRectangle) {
+      //     faceRectangleList.append(
+      //       "<li> " + prop + ": " + faceRectangle[prop] + "</li>"
+      //     );
+      //   }
 
-      // Get emotion confidence scores
-      var scores = data[0].scores;
-      var scoresList = $("#scores");
+      //   // Get emotion confidence scores
+      //   var scores = data[0].scores;
+      //   var scoresList = $("#scores");
 
-      // Append to DOM
-      for (var prop in scores) {
-        scoresList.append("<li> " + prop + ": " + scores[prop] + "</li>");
-      }
+      //   // Append to DOM
+      //   for (var prop in scores) {
+      //     scoresList.append("<li> " + prop + ": " + scores[prop] + "</li>");
+      //  }
     })
     .fail(function(err) {
       alert("Error: " + JSON.stringify(err));

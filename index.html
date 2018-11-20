@@ -6,34 +6,27 @@
     <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.0/jquery.min.js"></script>
   </head>
 
-  <h2>Face Rectangle</h2>
-  <ul id="faceRectangle">
-    <!-- Will populate list with response content -->
-  </ul>
+  <!--
+    <h2>Face Rectangle</h2>
+    <ul id="faceRectangle">
+    </ul>
 
-  <h2>Emotions</h2>
-  <ul id="scores">
-    <!-- Will populate list with response content -->
-  </ul>
+    <h2>Emotions</h2>
+    <ul id="scores">
+    </ul>
+  -->
 
   <body>
-    <video id="camera-stream"></video> <img id="snap" />
+    <button id="startBtn">start</button> <video id="camera-stream"></video>
+    <img id="snap" />
 
     <p id="error-message"></p>
 
     <div class="controls">
-      <a href="#" id="delete-photo" title="Delete Photo" class="disabled"
-        ><i class="material-icons">delete</i></a
-      >
       <a href="#" id="take-photo" title="Take Photo"
         ><i class="material-icons">take photo</i></a
       >
-      <a
-        href="#"
-        id="download-photo"
-        download="selfie.png"
-        title="Save Photo"
-        class="disabled"
+      <a href="#" id="download-photo" download="selfie.png" class="disabled"
         ><i class="material-icons">download photo</i></a
       >
     </div>
