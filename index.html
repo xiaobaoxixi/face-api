@@ -1,20 +1,10 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>JSSample</title>
+    <title>Face API</title>
     <link rel="stylesheet" href="main.css" />
-    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.0/jquery.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.0/jquery.min.js"></script>
   </head>
-
-  <!--
-    <h2>Face Rectangle</h2>
-    <ul id="faceRectangle">
-    </ul>
-
-    <h2>Emotions</h2>
-    <ul id="scores">
-    </ul>
-  -->
 
   <body>
     <button id="startBtn">start</button> <video id="camera-stream"></video>
@@ -23,12 +13,8 @@
     <p id="error-message"></p>
 
     <div class="controls">
-      <a href="#" id="take-photo" title="Take Photo"
-        ><i class="material-icons">take photo</i></a
-      >
-      <a href="#" id="download-photo" download="selfie.png" class="disabled"
-        ><i class="material-icons">download photo</i></a
-      >
+      <button id="check-photo">detect emotion</button>
+      <button id="download-photo">download photo</button>
     </div>
 
     <!-- Hidden canvas element. Used for taking snapshot of video. -->

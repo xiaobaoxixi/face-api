@@ -1,8 +1,10 @@
 canvas {
   display: none;
 }
-#startBtn {
+button {
+  width: 100px;
   display: block;
   padding: 10px;
+  margin: 10px;
   cursor: pointer;
 }
