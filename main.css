@@ -1,10 +1,48 @@
+* {
+  box-sizing: border-box;
+}
+
+main {
+  position: relative;
+  width: 90vh;
+}
+.frame {
+  width: 60vh;
+  height: 60vh;
+  position: absolute;
+  top: 30vh;
+  overflow: hidden;
+  border: 10px solid white;
+}
+.frame.cornered {
+  width: 30vh;
+  height: 30vh;
+  top: 0;
+  right: 0;
+}
+video,
+#snapshot {
+  height: 100%;
+  width: auto;
+  position: relative;
+  left: -12.5%;
+}
 canvas {
   display: none;
 }
-button {
-  width: 100px;
-  display: block;
+.controls {
   padding: 10px;
-  margin: 10px;
+}
+button {
+  display: inline-block;
+  height: calc(30vh - 20px);
+  width: calc(30vh - 5px);
+  border: none;
+  border-right: 10px solid white;
+  background: #eee;
+  padding: 0;
   cursor: pointer;
+}
+.hide {
+  display: none;
 }

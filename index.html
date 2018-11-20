@@ -7,17 +7,16 @@
   </head>
 
   <body>
-    <button id="startBtn">start</button> <video id="camera-stream"></video>
-    <img id="snap" />
-
-    <p id="error-message"></p>
-
-    <div class="controls">
-      <button id="check-photo">detect emotion</button>
-      <button id="download-photo">download photo</button>
-    </div>
-
-    <!-- Hidden canvas element. Used for taking snapshot of video. -->
+    <main>
+      <button id="startBtn">start</button>
+      <div class="frame video"><video id="camera-stream" class=""></video></div>
+      <div class="frame image"><img id="snapshot" class="" /></div>
+      <div class="controls">
+        <button id="check-photo" class="hide">detect emotion</button
+        ><button id="download-photo" class="hide">download photo</button>
+      </div>
+    </main>
+    <!-- canvas is hidden, used for taking snapshot from the video stream -->
     <canvas></canvas>
     <script src="camera.js"></script>
   </body>

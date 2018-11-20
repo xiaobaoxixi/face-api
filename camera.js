@@ -1,32 +1,33 @@
 let imageDataURL;
-let urlFixed;
+let urlCleared;
 let fileName;
+const start = document.querySelector("#startBtn"); // need to let the user interact with the page, otherwise triggering video play is not allowed
+const checkPhoto = document.querySelector("#check-photo");
+const downloadPhoto = document.querySelector("#download-photo");
 
 window.addEventListener("DOMContentLoaded", init);
 function init() {
-  const start = document.querySelector("#startBtn"); // need to let the user interact with the page to trigger video allowance
   start.addEventListener("click", startVideo);
 }
 
 function startVideo() {
-  let image = document.querySelector("#snap");
+  // show / hide buttons
+  start.classList.add("hide");
+  checkPhoto.classList.remove("hide");
+  downloadPhoto.classList.remove("hide");
+  let image = document.querySelector("#snapshot");
   let video = document.querySelector("#camera-stream");
-  let checkPhoto = document.querySelector("#check-photo");
-  let downloadPhoto = document.querySelector("#download-photo");
 
   // get video stream
   navigator.getUserMedia(
-    // Options
     {
       video: true,
       audio: false
     },
     // Success Callback
     function(stream) {
-      // Create an object URL for the video stream and
-      // set it as src of our HTLM video element.
+      // Create an object URL for the video stream and set it as src of our HTLM video element.
       video.src = window.URL.createObjectURL(stream);
-
       // Play the video element to show the stream to the user.
       video.play();
     },
@@ -38,35 +39,36 @@ function startVideo() {
   );
   function takeSnapshot() {
     let hidden_canvas = document.querySelector("canvas");
-    // Get the exact size of the video element.
+    // Get the sizes of the video element and aspect ratio
     let width = video.videoWidth;
     let height = video.videoHeight;
+    let ratio = width / height;
+    // Get the size of the div frame
+    const frame = document.querySelector(".frame.image");
+    const frameHeight = frame.getBoundingClientRect().height;
+    document.querySelector(".frame.video").classList.add("cornered");
+
     // Context object for working with the canvas.
     let context = hidden_canvas.getContext("2d");
-
     // Set the canvas to the same dimensions as the video.
-    hidden_canvas.width = width;
-    hidden_canvas.height = height;
-
+    hidden_canvas.height = frameHeight;
+    hidden_canvas.width = frameHeight * ratio;
     // Draw a copy of the current frame from the video on the canvas.
-    context.drawImage(video, 0, 0, width, height);
-
-    // Get an image dataURL from the canvas.
+    context.drawImage(video, 0, 0, frameHeight * ratio, frameHeight);
+    // Get the image dataURL from the canvas.
     imageDataURL = hidden_canvas.toDataURL();
-    //"image/png"
-
     // Set the dataURL as source of an image element, showing the captured photo.
     image.setAttribute("src", imageDataURL);
-    urlFixed = hidden_canvas
+    urlCleared = hidden_canvas
       .toDataURL("image/png")
       .replace("image/png", "image/octet-stream");
-    console.log(imageDataURL);
+    // download the img file when button is clicked
     downloadPhoto.addEventListener("click", downloadFile);
     function downloadFile() {
-      window.location.href = urlFixed;
+      window.location.href = urlCleared;
     }
   }
-
+  // take a snapshot, upload to server, send url to faceAPI
   checkPhoto.addEventListener("click", sentToPHP);
   function sentToPHP() {
     takeSnapshot();
@@ -78,11 +80,7 @@ function startVideo() {
         data: { img: imageDataURL }
       })
         .done(function(msg) {
-          //   fileName = "https://onestepfurther.nu/semester3/b/" + msg;
-          //   console.log(fileName.toString());
-          //////////////////////////////
-          // face API
-          //////////////////////////////
+          // sent to face API
           $(function() {
             var params = {
               returnFaceId: "true",
@@ -107,26 +105,7 @@ function startVideo() {
               data: '{"url": "' + filePath + '"}'
             })
               .done(function(data) {
-                // Get face rectangle dimensions
-                console.log(data);
-                //   var faceRectangle = data[0].faceRectangle;
-                //   var faceRectangleList = $("#faceRectangle");
-
-                //   // Append to DOM
-                //   for (var prop in faceRectangle) {
-                //     faceRectangleList.append(
-                //       "<li> " + prop + ": " + faceRectangle[prop] + "</li>"
-                //     );
-                //   }
-
-                //   // Get emotion confidence scores
-                //   var scores = data[0].scores;
-                //   var scoresList = $("#scores");
-
-                //   // Append to DOM
-                //   for (var prop in scores) {
-                //     scoresList.append("<li> " + prop + ": " + scores[prop] + "</li>");
-                //  }
+                console.table(data[0].faceAttributes.emotion);
               })
               .fail(function(err) {
                 alert("Error: " + JSON.stringify(err));
