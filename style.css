@@ -1,0 +1,45 @@
+.bigContainer {
+  display: grid;
+  grid-template-columns: 60vw 40vh;
+  padding-top: calc(5vh - 30px);
+}
+.container {
+  margin-left: calc(30vw - 45vh - 20px);
+  display: grid;
+  grid-template-columns: 30vh 30vh 30vh;
+  grid-template-rows: 30vh 30vh 30vh;
+  grid-gap: 20px;
+}
+.four {
+  grid-column: 1/3;
+  grid-row: 1/3;
+  display: grid;
+  grid-template-columns: 30vh 30vh;
+  grid-template-rows: repeat(5, 30vh);
+  grid-gap: 20px;
+  overflow: scroll;
+}
+.imgContainer {
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  cursor: pointer;
+  transition: all 0.2s ease-in-out;
+}
+.imgContainer:hover {
+  transform: scale(1.1);
+}
+.imgContainer.chosen {
+  grid-column: 1/3;
+  grid-row: 1/3;
+}
+img {
+  height: 100%;
+}
+.btnContainer {
+  text-align: center;
+}
+.selfie {
+  grid-column: 3/4;
+  grid-row: 3/4;
+}
