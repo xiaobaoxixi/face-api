@@ -116,7 +116,17 @@ function startVideo() {
               data: '{"url": "' + filePath + '"}'
             })
               .done(function(data) {
-                console.table(data[0].faceAttributes.emotion);
+                const emotions = data[0].faceAttributes.emotion;
+                const emotionsArray = Object.keys(emotions).map(function(key) {
+                  return emotions[key];
+                });
+                console.log(emotionsArray);
+                for (let i = 1; i < 9; i++) {
+                  const bar = document.querySelector(
+                    `.bar-chart>div:nth-child(2)>div:nth-child(${i})>div`
+                  );
+                  bar.style.width = emotionsArray[i - 1] * 100 + "%";
+                }
               })
               .fail(function(err) {
                 alert("Error: " + JSON.stringify(err));

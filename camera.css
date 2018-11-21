@@ -87,7 +87,7 @@ h4 {
   border: 1px solid lightblue;
 }
 .bar-chart > div:nth-child(2) > div > div {
-  width: 50%;
+  width: 0%;
   height: 100%;
   background: lightblue;
 }
