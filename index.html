@@ -5,7 +5,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta http-equiv="X-UA-Compatible" content="ie=edge" />
     <link rel="stylesheet" href="style.css" />
+    <link rel="stylesheet" href="camera.css" />
     <title>faceAPI</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.0/jquery.min.js"></script>
   </head>
   <style></style>
   <body>
@@ -14,46 +16,61 @@
         <div class="imgContainer">
           <img class="myImg" src="images/1.jpg" alt="" />
         </div>
-        <div class="imgContainer">
-          <img class="myImg" src="images/2.jpg" alt="" />
-        </div>
-        <div class="imgContainer">
-          <img class="myImg" src="images/4.jpg" alt="" />
-        </div>
-        <div class="imgContainer">
-          <img class="myImg" src="images/5.jpg" alt="" />
-        </div>
-        <div class="imgContainer">
-          <img class="myImg" src="images/6.jpg" alt="" />
-        </div>
-        <div class="imgContainer">
-          <img class="myImg" src="images/7.jpg" alt="" />
-        </div>
-        <div class="imgContainer">
-          <img class="myImg" src="images/8.jpg" alt="" />
-        </div>
-        <div class="imgContainer">
-          <img class="myImg" src="images/9.jpg" alt="" />
-        </div>
-        <div class="imgContainer selfie">
-          <img class="myImg" src="images/9.png" alt="" />
-        </div>
-
+        <div class="imgContainer"><img  class="myImg" src="images/2.jpg" alt="" /></div>
+        <div class="imgContainer"><img  class="myImg" src="images/4.jpg" alt="" /></div>
+        <div class="imgContainer"><img class="myImg" src="images/5.jpg" alt="" /></div>
+        <div class="imgContainer"><img class="myImg" src="images/6.jpg" alt="" /></div>
+        <div class="imgContainer"><img class="myImg" src="images/7.jpg" alt="" /></div>
+        <div class="imgContainer"><img class="myImg" src="images/8.jpg" alt="" /></div>
+        <div class="imgContainer"><img class="myImg" src="images/9.jpg" alt="" /></div>
+        <div class="imgContainer selfie"><img src="images/9.png" alt="" /></div>
+        <div class="modal hide">
+          <div class="frame video hide">
+            <video id="camera-stream" class=""></video>
+            <button id="check-photo" class="hide">detect emotion</button>
+          </div>
+          <div class="frame image hide">
+            <img id="snapshot" class="" /><button id="restart" class="hide">
+              another shot
+            </button>
+          </div>
+          <canvas></canvas>
         <div id="myModal" class="modal">
           <span class="close"> ◀ Go back</span>
 
           <img id="modalImg" src="" />
         </div>
       </div>
-      <div class="btnContainer">
-        <h4>
-          Choose one of the pictures<br />
-          or<br />
-          take a selfie <br />to get the emotions
-        </h4>
-        <!--
-          <button>Take a picture</button> <button>Get the emotions</button>
-        -->
+      <div class="emotionsContainer">
+        <div>
+          <h4>
+            Choose one of the pictures<br />
+            or<br />
+            take a selfie
+          </h4>
+          <div class="bar-chart">
+            <div>
+              <p>anger</p>
+              <p>contempt</p>
+              <p>disgust</p>
+              <p>fear</p>
+              <p>happiness</p>
+              <p>neutral</p>
+              <p>sadness</p>
+              <p>surprise</p>
+            </div>
+            <div>
+              <div><div></div></div>
+              <div><div></div></div>
+              <div><div></div></div>
+              <div><div></div></div>
+              <div><div></div></div>
+              <div><div></div></div>
+              <div><div></div></div>
+              <div><div></div></div>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
     <script>
@@ -78,5 +95,6 @@
       };
     </script>
     <script src="main.js"></script>
+    <script src="camera.js"></script>
   </body>
 </html>

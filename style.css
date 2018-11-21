@@ -6,7 +6,7 @@
 }
 .bigContainer {
   display: grid;
-  grid-template-columns: 60vw 40vh;
+  grid-template-columns: 60vw 40vw;
   padding-top: calc(5vh - 30px);
 }
 .container {
@@ -43,7 +43,8 @@ img {
   height: 100%;
 }
 .btnContainer {
-  text-align: center;
+  width: 80%;
+  margin-left: 10%;
 }
 .selfie {
   grid-column: 3/4;
