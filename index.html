@@ -1,78 +1,94 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
   <head>
-    <title>JSSample</title>
-    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.0/jquery.min.js"></script>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Document</title>
   </head>
-
-  <h2>Face Rectangle</h2>
-  <ul id="faceRectangle">
-    <!-- Will populate list with response content -->
-  </ul>
-
-  <h2>Emotions</h2>
-  <ul id="scores">
-    <!-- Will populate list with response content -->
-  </ul>
-
+  <style>
+    .bigContainer {
+      display: grid;
+      grid-template-columns: 60vw 40vh;
+    }
+    .container {
+      margin-left: calc(30vw - 45vh - 20px);
+      display: grid;
+      grid-template-columns: 30vh 30vh 30vh;
+      grid-template-rows: 30vh 30vh 30vh;
+      grid-gap: 20px;
+    }
+    .imgContainer {
+      width: 100%;
+      height: 100%;
+      overflow: hidden;
+      cursor: pointer;
+      transition: all 0.2s ease-in-out;
+    }
+    .imgContainer:hover {
+      transform: scale(1.1);
+    }
+    .imgContainer2 {
+      transform: scale(1.1);
+      border: 2px solid black;
+    }
+    img {
+      height: 100%;
+    }
+    .btnContainer {
+      margin-top: 30px;
+      text-align: center;
+    }
+    /* button {
+      padding: 15px 30px;
+      text-decoration: none;
+      display: block;
+      margin: 20px auto;
+      border: 1px solid #333;
+      color: #333;
+      background-color: #fefefe;
+      border-radius: 5px;
+      font-weight: 700;
+      font-size: 15px;
+      letter-spacing: 1px;
+      transition: all 0.2s ease-in-out;
+    }
+    button:hover {
+      cursor: pointer;
+      background: #333;
+      border: 1px solid #333;
+      color: #fefefe;
+      border-radius: 20px;
+    } */
+  </style>
   <body>
-    <script type="text/javascript">
-      $(function() {
-        // No query string parameters for this API call.
-        var params = {
-          returnFaceId: "true",
-          returnFaceLandmarks: "true",
-          returnFaceAttributes: "emotion"
-        };
+    <div class="bigContainer">
+      <div class="container">
+        <div class="imgContainer imgContainer2">
+          <img src="images/1.jpg" alt="" />
+        </div>
+        <div class="imgContainer"><img src="images/2.jpg" alt="" /></div>
 
-        $.ajax({
-          // NOTE: You must use the same location in your REST call as you used to obtain your subscription keys.
-          //   For example, if you obtained your subscription keys from westcentralus, replace "westus" in the
-          //   URL below with "westcentralus".
-          url:
-            "https://westeurope.api.cognitive.microsoft.com/face/v1.0/detect?" +
-            $.param(params),
-          beforeSend: function(xhrObj) {
-            // Request headers, also supports "application/octet-stream"
-            xhrObj.setRequestHeader("Content-Type", "application/json");
+        <div class="imgContainer"><img src="images/4.jpg" alt="" /></div>
+        <div class="imgContainer"><img src="images/5.jpg" alt="" /></div>
+        <div class="imgContainer"><img src="images/6.jpg" alt="" /></div>
+        <div class="imgContainer"><img src="images/7.jpg" alt="" /></div>
+        <div class="imgContainer"><img src="images/8.jpg" alt="" /></div>
+        <div class="imgContainer"><img src="images/9.jpg" alt="" /></div>
+        <div class="imgContainer selfie"><img src="images/9.png" alt="" /></div>
 
-            // NOTE: Replace the "Ocp-Apim-Subscription-Key" value with a valid subscription key.
-            xhrObj.setRequestHeader(
-              "Ocp-Apim-Subscription-Key",
-              "7aa6b095decb4b0d9624979844008941"
-            );
-          },
-          type: "POST",
-          // Request body
-          data:
-            '{"url": "https://i.pinimg.com/originals/37/8f/fa/378ffa7b4bc07f190ee35f85ed816377.jpg"}'
-        })
-          .done(function(data) {
-            // Get face rectangle dimensions
-            console.log(data);
-            var faceRectangle = data[0].faceRectangle;
-            var faceRectangleList = $("#faceRectangle");
-
-            // Append to DOM
-            for (var prop in faceRectangle) {
-              faceRectangleList.append(
-                "<li> " + prop + ": " + faceRectangle[prop] + "</li>"
-              );
-            }
-
-            // Get emotion confidence scores
-            var scores = data[0].scores;
-            var scoresList = $("#scores");
-
-            // Append to DOM
-            for (var prop in scores) {
-              scoresList.append("<li> " + prop + ": " + scores[prop] + "</li>");
-            }
-          })
-          .fail(function(err) {
-            alert("Error: " + JSON.stringify(err));
-          });
-      });
-    </script>
+        <div class="imgContainer"></div>
+      </div>
+      <div class="btnContainer">
+        <h4>
+          Choose one of the pictures<br />
+          or<br />
+          take a selfie <br />to get the emotions
+        </h4>
+        <!--
+          <button>Take a picture</button> <button>Get the emotions</button>
+        -->
+      </div>
+    </div>
   </body>
 </html>
