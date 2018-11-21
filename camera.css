@@ -1,5 +1,6 @@
 * {
   box-sizing: border-box;
+  font-family: sans-serif;
 }
 
 main {
@@ -56,4 +57,37 @@ button {
   width: calc(90vh + 40px);
   height: 100vh;
   background-color: rgba(255, 255, 255, 0.8);
+}
+.emotionsContainer {
+  position: relative;
+}
+h4 {
+  text-align: center;
+  margin-top: 15vh;
+  margin-bottom: 50px;
+}
+.bar-chart {
+  height: 50vh;
+  width: 100%;
+  margin: 0 auto 0;
+  display: grid;
+  grid-template-columns: 2fr 3fr 2fr;
+  grid-gap: 20px;
+}
+.bar-chart p {
+  text-align: right;
+  font-size: 19px;
+  line-height: calc(50vh / 8);
+  margin: 0 0 5px 0;
+}
+.bar-chart > div:nth-child(2) > div {
+  width: 100%;
+  height: calc(50vh / 8);
+  margin-bottom: 5px;
+  border: 1px solid lightblue;
+}
+.bar-chart > div:nth-child(2) > div > div {
+  width: 50%;
+  height: 100%;
+  background: lightblue;
 }
