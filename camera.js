@@ -7,7 +7,7 @@ const restartPhoto = document.querySelector("#restart");
 const imgFrame = document.querySelector(".frame.image");
 const videoFrame = document.querySelector(".frame.video");
 const modal2 = document.querySelector(".modal2");
-
+const close2 = document.querySelector(".close2");
 const staticImgS = document.querySelectorAll(".myImg");
 
 window.addEventListener("DOMContentLoaded", init);
@@ -191,3 +191,7 @@ function listenToImg(img) {
     });
   }
 }
+
+close2.addEventListener("click", () => {
+  modal2.classList.add("hide");
+});
