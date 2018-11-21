@@ -6,13 +6,14 @@ const checkPhoto = document.querySelector("#check-photo");
 const restartPhoto = document.querySelector("#restart");
 const imgFrame = document.querySelector(".frame.image");
 const videoFrame = document.querySelector(".frame.video");
-const modal2 = document.querySelector(".modal");
+const modal2 = document.querySelector(".modal2");
 window.addEventListener("DOMContentLoaded", init);
 function init() {
   start.addEventListener("click", startVideo);
 }
 
 function startVideo() {
+  console.log("start");
   // show / hide buttons
   checkPhoto.classList.remove("hide");
   videoFrame.classList.remove("hide");

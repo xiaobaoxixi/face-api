@@ -16,15 +16,34 @@
         <div class="imgContainer">
           <img class="myImg" src="images/1.jpg" alt="" />
         </div>
-        <div class="imgContainer"><img  class="myImg" src="images/2.jpg" alt="" /></div>
-        <div class="imgContainer"><img  class="myImg" src="images/4.jpg" alt="" /></div>
-        <div class="imgContainer"><img class="myImg" src="images/5.jpg" alt="" /></div>
-        <div class="imgContainer"><img class="myImg" src="images/6.jpg" alt="" /></div>
-        <div class="imgContainer"><img class="myImg" src="images/7.jpg" alt="" /></div>
-        <div class="imgContainer"><img class="myImg" src="images/8.jpg" alt="" /></div>
-        <div class="imgContainer"><img class="myImg" src="images/9.jpg" alt="" /></div>
+        <div class="imgContainer">
+          <img class="myImg" src="images/2.jpg" alt="" />
+        </div>
+        <div class="imgContainer">
+          <img class="myImg" src="images/4.jpg" alt="" />
+        </div>
+        <div class="imgContainer">
+          <img class="myImg" src="images/5.jpg" alt="" />
+        </div>
+        <div class="imgContainer">
+          <img class="myImg" src="images/6.jpg" alt="" />
+        </div>
+        <div class="imgContainer">
+          <img class="myImg" src="images/7.jpg" alt="" />
+        </div>
+        <div class="imgContainer">
+          <img class="myImg" src="images/8.jpg" alt="" />
+        </div>
+        <div class="imgContainer">
+          <img class="myImg" src="images/9.jpg" alt="" />
+        </div>
         <div class="imgContainer selfie"><img src="images/9.png" alt="" /></div>
-        <div class="modal hide">
+        <div id="myModal" class="modal">
+          <span class="close"> ◀ Go back</span>
+
+          <img id="modalImg" src="" />
+        </div>
+        <div class="modal2 hide">
           <div class="frame video hide">
             <video id="camera-stream" class=""></video>
             <button id="check-photo" class="hide">detect emotion</button>
@@ -35,10 +54,6 @@
             </button>
           </div>
           <canvas></canvas>
-        <div id="myModal" class="modal">
-          <span class="close"> ◀ Go back</span>
-
-          <img id="modalImg" src="" />
         </div>
       </div>
       <div class="emotionsContainer">
