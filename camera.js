@@ -6,7 +6,7 @@ const checkPhoto = document.querySelector("#check-photo");
 const restartPhoto = document.querySelector("#restart");
 const imgFrame = document.querySelector(".frame.image");
 const videoFrame = document.querySelector(".frame.video");
-const modal = document.querySelector(".modal");
+const modal2 = document.querySelector(".modal");
 window.addEventListener("DOMContentLoaded", init);
 function init() {
   start.addEventListener("click", startVideo);
@@ -16,7 +16,7 @@ function startVideo() {
   // show / hide buttons
   checkPhoto.classList.remove("hide");
   videoFrame.classList.remove("hide");
-  modal.classList.remove("hide");
+  modal2.classList.remove("hide");
 
   let image = document.querySelector("#snapshot");
   let video = document.querySelector("#camera-stream");
