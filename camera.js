@@ -7,6 +7,9 @@ const restartPhoto = document.querySelector("#restart");
 const imgFrame = document.querySelector(".frame.image");
 const videoFrame = document.querySelector(".frame.video");
 const modal2 = document.querySelector(".modal2");
+
+const staticImgS = document.querySelectorAll(".myImg");
+
 window.addEventListener("DOMContentLoaded", init);
 function init() {
   start.addEventListener("click", startVideo);
@@ -135,6 +138,55 @@ function startVideo() {
         })
         .fail(function(err) {
           console.log("no php");
+        });
+    });
+  }
+}
+// detect emotions from available img
+staticImgS.forEach(listenToImg);
+function listenToImg(img) {
+  img.addEventListener("click", checkEmotion);
+  function checkEmotion(e) {
+    const src = e.target.getAttribute("src");
+    const imgUrl = `https://onestepfurther.nu/semester3/z/${src}`;
+    console.log(imgUrl);
+    // sent to face API
+    $(function() {
+      var params = {
+        returnFaceId: "true",
+        returnFaceLandmarks: "true",
+        returnFaceAttributes: "emotion"
+      };
+      $.ajax({
+        url:
+          "https://westeurope.api.cognitive.microsoft.com/face/v1.0/detect?" +
+          $.param(params),
+        beforeSend: function(xhrObj) {
+          // Request headers, also supports "application/octet-stream"
+          xhrObj.setRequestHeader("Content-Type", "application/json");
+          xhrObj.setRequestHeader(
+            "Ocp-Apim-Subscription-Key",
+            "7aa6b095decb4b0d9624979844008941"
+          );
+        },
+        type: "POST",
+        data: '{"url": "' + imgUrl + '"}'
+      })
+        .done(function(data) {
+          const emotions = data[0].faceAttributes.emotion;
+          const emotionsArray = Object.keys(emotions).map(function(key) {
+            return emotions[key];
+          });
+          console.log(emotionsArray);
+          for (let i = 1; i < 9; i++) {
+            const bar = document.querySelector(
+              `.bar-chart>div:nth-child(2)>div:nth-child(${i})>div`
+            );
+            bar.style.width = emotionsArray[i - 1] * 100 + "%";
+          }
+        })
+        .fail(function(err) {
+          alert("Error: " + JSON.stringify(err));
         });
     });
   }
