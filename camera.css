@@ -1,0 +1,59 @@
+* {
+  box-sizing: border-box;
+}
+
+main {
+  position: relative;
+  width: 90vh;
+}
+.frame {
+  width: 70vh;
+  height: 70vh;
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  margin: auto;
+  overflow: hidden;
+  border: 15px solid white;
+  text-align: center;
+}
+.frame button {
+  position: absolute;
+  bottom: 30px;
+  display: inline-block;
+}
+.frame.cornered {
+  width: 30vh;
+  height: 30vh;
+  top: 0;
+  right: 0;
+}
+video,
+#snapshot {
+  height: 100%;
+  width: auto;
+  position: relative;
+  left: -12.5%;
+}
+canvas {
+  display: none;
+}
+.controls {
+  padding: 10px;
+}
+button {
+  background: #eee;
+  padding: 0;
+  cursor: pointer;
+}
+.hide {
+  display: none;
+}
+.modal {
+  position: fixed;
+  width: calc(90vh + 40px);
+  height: 100vh;
+  background-color: rgba(255, 255, 255, 0.8);
+}
