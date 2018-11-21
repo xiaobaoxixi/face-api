@@ -22,8 +22,10 @@ main {
 }
 .frame button {
   position: absolute;
-  bottom: 30px;
+  bottom: 10px;
   display: inline-block;
+  left: 50%;
+  transform: translateX(-50%);
 }
 .frame.cornered {
   width: 30vh;
