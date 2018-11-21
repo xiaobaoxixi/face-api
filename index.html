@@ -7,23 +7,43 @@
     <link rel="stylesheet" href="style.css" />
     <title>faceAPI</title>
   </head>
+  <style></style>
   <body>
     <div class="bigContainer">
       <div class="container">
-        <div class="four">
-          <div class="imgContainer">
-            <img class="img" src="images/1.jpg" alt="" />
-          </div>
-          <div class="imgContainer"><img src="images/2.jpg" alt="" /></div>
-
-          <div class="imgContainer"><img src="images/4.jpg" alt="" /></div>
-          <div class="imgContainer"><img src="images/5.jpg" alt="" /></div>
-          <div class="imgContainer"><img src="images/6.jpg" alt="" /></div>
-          <div class="imgContainer"><img src="images/7.jpg" alt="" /></div>
-          <div class="imgContainer"><img src="images/8.jpg" alt="" /></div>
-          <div class="imgContainer"><img src="images/9.jpg" alt="" /></div>
+        <div class="imgContainer">
+          <img class="myImg" src="images/1.jpg" alt="" />
         </div>
-        <div class="imgContainer selfie"><img src="images/9.png" alt="" /></div>
+        <div class="imgContainer">
+          <img class="myImg" src="images/2.jpg" alt="" />
+        </div>
+        <div class="imgContainer">
+          <img class="myImg" src="images/4.jpg" alt="" />
+        </div>
+        <div class="imgContainer">
+          <img class="myImg" src="images/5.jpg" alt="" />
+        </div>
+        <div class="imgContainer">
+          <img class="myImg" src="images/6.jpg" alt="" />
+        </div>
+        <div class="imgContainer">
+          <img class="myImg" src="images/7.jpg" alt="" />
+        </div>
+        <div class="imgContainer">
+          <img class="myImg" src="images/8.jpg" alt="" />
+        </div>
+        <div class="imgContainer">
+          <img class="myImg" src="images/9.jpg" alt="" />
+        </div>
+        <div class="imgContainer selfie">
+          <img class="myImg" src="images/9.png" alt="" />
+        </div>
+
+        <div id="myModal" class="modal">
+          <span class="close"> ◀ Go back</span>
+
+          <img id="modalImg" src="" />
+        </div>
       </div>
       <div class="btnContainer">
         <h4>
@@ -36,6 +56,27 @@
         -->
       </div>
     </div>
+    <script>
+      const modal = document.getElementById("myModal");
+
+      let img = document.querySelectorAll(".myImg");
+      let modalImg = document.getElementById("modalImg");
+      console.log(img);
+      img.forEach(showSingleImage);
+      function showSingleImage(eachImage) {
+        eachImage.addEventListener("click", changeSrc);
+        function changeSrc(e) {
+          modal.style.display = "inherit";
+          modalImg.setAttribute("src", e.target.getAttribute("src"));
+        }
+      }
+
+      var span = document.getElementsByClassName("close")[0];
+
+      span.onclick = function() {
+        modal.style.display = "none";
+      };
+    </script>
     <script src="main.js"></script>
   </body>
 </html>

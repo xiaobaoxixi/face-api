@@ -1,1 +1,0 @@
-const imageS = document.querySelectorAll("");
