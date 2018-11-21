@@ -10,9 +10,10 @@ main {
   width: 60vh;
   height: 60vh;
   position: absolute;
-  top: 30vh;
+  top: 0;
   overflow: hidden;
   border: 10px solid white;
+  pointer-events: none;
 }
 .frame.cornered {
   width: 30vh;
@@ -32,10 +33,12 @@ canvas {
 }
 .controls {
   padding: 10px;
+  position: relative;
+  top: 30vh;
+  left: 60vh;
 }
 button {
-  display: inline-block;
-  height: calc(30vh - 20px);
+  height: 15vh;
   width: calc(30vh - 5px);
   border: none;
   border-right: 10px solid white;

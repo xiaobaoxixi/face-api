@@ -50,7 +50,7 @@ function startVideo() {
 
     // Context object for working with the canvas.
     let context = hidden_canvas.getContext("2d");
-    // Set the canvas to the same dimensions as the video.
+    // Set the canvas height to the same height as the frame, set width keeping video aspect ratio.
     hidden_canvas.height = frameHeight;
     hidden_canvas.width = frameHeight * ratio;
     // Draw a copy of the current frame from the video on the canvas.
@@ -71,9 +71,10 @@ function startVideo() {
   // take a snapshot, upload to server, send url to faceAPI
   checkPhoto.addEventListener("click", sentToPHP);
   function sentToPHP() {
+    // take a snapshot
     takeSnapshot();
+    // upload to server
     $(function() {
-      // upload to server
       $.ajax({
         type: "POST",
         url: "https://onestepfurther.nu/semester3/h/uploadImg.php",
@@ -105,7 +106,9 @@ function startVideo() {
               data: '{"url": "' + filePath + '"}'
             })
               .done(function(data) {
-                console.table(data[0].faceAttributes.emotion);
+                if (data[0]) {
+                  console.table(data[0].faceAttributes.emotion);
+                }
               })
               .fail(function(err) {
                 alert("Error: " + JSON.stringify(err));
@@ -118,3 +121,77 @@ function startVideo() {
     });
   }
 }
+
+// const spotify = document.querySelector("#spotify");
+// spotify.addEventListener("click", login);
+// function login() {
+//   function login(callback) {
+//     var CLIENT_ID = "6b284830006843e7ae7b170725715aed";
+//     var REDIRECT_URI = "http://jmperezperez.com/spotify-oauth-jsfiddle-proxy/";
+//     function getLoginURL(scopes) {
+//       return (
+//         "https://accounts.spotify.com/authorize?client_id=" +
+//         CLIENT_ID +
+//         "&redirect_uri=" +
+//         encodeURIComponent(REDIRECT_URI) +
+//         "&scope=" +
+//         encodeURIComponent(scopes.join(" ")) +
+//         "&response_type=token"
+//       );
+//     }
+
+//     var url = getLoginURL(["user-read-email"]);
+
+//     var width = 450,
+//       height = 730,
+//       left = screen.width / 2 - width / 2,
+//       top = screen.height / 2 - height / 2;
+
+//     window.addEventListener(
+//       "message",
+//       function(event) {
+//         var hash = JSON.parse(event.data);
+//         if (hash.type == "access_token") {
+//           callback(hash.access_token);
+//         }
+//       },
+//       false
+//     );
+
+//     var w = window.open(
+//       url,
+//       "Spotify",
+//       "menubar=no,location=no,resizable=no,scrollbars=no,status=no, width=" +
+//         width +
+//         ", height=" +
+//         height +
+//         ", top=" +
+//         top +
+//         ", left=" +
+//         left
+//     );
+//   }
+
+//   function getUserData(accessToken) {
+//     return $.ajax({
+//       url: "https://api.spotify.com/v1/me",
+//       headers: {
+//         Authorization: "Bearer " + accessToken
+//       }
+//     });
+//   }
+
+//   var templateSource = document.getElementById("result-template").innerHTML,
+//     template = Handlebars.compile(templateSource),
+//     resultsPlaceholder = document.getElementById("result"),
+//     loginButton = document.getElementById("btn-login");
+
+//   loginButton.addEventListener("click", function() {
+//     login(function(accessToken) {
+//       getUserData(accessToken).then(function(response) {
+//         loginButton.style.display = "none";
+//         resultsPlaceholder.innerHTML = template(response);
+//       });
+//     });
+//   });
+// }
